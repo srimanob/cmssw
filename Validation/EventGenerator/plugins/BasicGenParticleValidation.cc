@@ -18,6 +18,7 @@ BasicGenParticleValidation::BasicGenParticleValidation(const edm::ParameterSet& 
   genparticleCollection_(iPSet.getParameter<edm::InputTag>("genparticleCollection")),
   genjetCollection_(iPSet.getParameter<edm::InputTag>("genjetsCollection")),
   matchPr_(iPSet.getParameter<double>("matchingPrecision")),
+  rebinFactor_(iPSet.getParameter<int>("rebinFactor")),
   verbosity_(iPSet.getUntrackedParameter<unsigned int>("verbosity",0))
 {    
 
@@ -50,10 +51,10 @@ void BasicGenParticleValidation::bookHistograms(DQMStore::IBooker &i, edm::Run c
   
   // GenJet general distributions
   genJetMult = dqm.book1dHisto("genJetMult", "GenJet multiplicity", 50, 0, 50,"N_{gen-jets}","Number of Events");
-  genJetEnergy = dqm.book1dHisto("genJetEnergy", "Log10(GenJet energy)", 60, -1, 5,"log_{10}(E^{gen-jets}) (log_{10}(GeV))","Number of Events");
-  genJetPt = dqm.book1dHisto("genJetPt", "Log10(GenJet pt)", 60, -1, 5,"log_{10}(P_{t}^{gen-jets}) (log_{10}(GeV))","Number of Events");
-  genJetEta = dqm.book1dHisto("genJetEta", "GenJet eta", 220, -11, 11,"#eta^{gen-jets}","Number of Events");
-  genJetPhi = dqm.book1dHisto("genJetPhi", "GenJet phi", 360, -180, 180,"#phi^{gen-jets} (rad)","Number of Events");
+  genJetEnergy = dqm.book1dHisto("genJetEnergy", "Log10(GenJet energy)", int(60/rebinFactor_), -1, 5,"log_{10}(E^{gen-jets}) (log_{10}(GeV))","Number of Events");
+  genJetPt = dqm.book1dHisto("genJetPt", "Log10(GenJet pt)", int(60/rebinFactor_), -1, 5,"log_{10}(P_{t}^{gen-jets}) (log_{10}(GeV))","Number of Events");
+  genJetEta = dqm.book1dHisto("genJetEta", "GenJet eta", int(220/rebinFactor_), -11, 11,"#eta^{gen-jets}","Number of Events");
+  genJetPhi = dqm.book1dHisto("genJetPhi", "GenJet phi", int(360/rebinFactor_), -180, 180,"#phi^{gen-jets} (rad)","Number of Events");
   genJetDeltaEtaMin = dqm.book1dHisto("genJetDeltaEtaMin", "GenJet minimum rapidity gap", 30, 0, 30,"#delta#eta_{min}^{gen-jets}","Number of Events");
   
   genJetPto1 = dqm.book1dHisto("genJetPto1", "GenJet multiplicity above 1 GeV", 50, 0, 50,"N_{gen-jets P_{t}>1GeV}","Number of Events");

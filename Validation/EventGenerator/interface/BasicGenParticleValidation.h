@@ -51,6 +51,8 @@ class BasicGenParticleValidation : public DQMEDAnalyzer{
     edm::InputTag genjetCollection_;
     double matchPr_;	
 
+    int rebinFactor_;
+
     unsigned int verbosity_;
 
 

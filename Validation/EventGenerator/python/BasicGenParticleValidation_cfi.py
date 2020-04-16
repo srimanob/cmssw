@@ -7,5 +7,6 @@ basicGenParticleValidation = DQMEDAnalyzer('BasicGenParticleValidation',
     genjetsCollection = cms.InputTag("ak4GenJets",""),
     matchingPrecision = cms.double(0.001),
     verbosity = cms.untracked.uint32(0),
+    rebinFactor = cms.int32(1),
     UseWeightFromHepMC = cms.bool(True)
 )
